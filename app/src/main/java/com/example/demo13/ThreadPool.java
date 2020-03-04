@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
-import java.util.Map;
+import com.example.demo13.MainActivity;import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class ThreadPool {
-    private static ThreadPool threadPool;
+    private static MainActivity.ThreadPool threadPool;
     private ThreadPoolExecutor threadPoolExecutor;
     private Handler handler=new Handler(){
         @Override
@@ -38,11 +38,11 @@ public class ThreadPool {
     private ThreadPool(){
         threadPoolExecutor=(ThreadPoolExecutor) Executors.newFixedThreadPool(50);
     }
-    public static ThreadPool getInstance(){
+    public static MainActivity.ThreadPool getInstance(){
         if(threadPool==null){
-            synchronized (ThreadPool.class){
+            synchronized (MainActivity.ThreadPool.class){
                 if(threadPool==null){
-                    threadPool=new ThreadPool();
+                    threadPool=new MainActivity.ThreadPool();
                 }
             }
         }
