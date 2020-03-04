@@ -31,10 +31,13 @@ public class ImageLoader {
     }
 
     public ImageItem load(final String url){
+        if(ImageController.get(url)!=null){
+            return new ImageItem(url);
+        }
         Callable<Bitmap> callable=new Callable<Bitmap>() {
             @Override
             public Bitmap call() throws Exception {
-                Log.d("sandyzhang",url);
+                Log.d("ImageLoader","下载图片："+url);
                 URL url1=new URL(url);
                 HttpURLConnection httpURLConnection=(HttpURLConnection) url1.openConnection();
                 httpURLConnection.setRequestMethod("GET");

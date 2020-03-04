@@ -7,6 +7,7 @@ import androidx.core.util.Pair;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.io.ObjectOutputStream;
 import java.util.concurrent.Future;
 
 public class ImageItem {
@@ -16,23 +17,21 @@ public class ImageItem {
     }
     public void into(final ImageView imageView){
         final Future<Bitmap> future= ImageController.get(url);
-        Thread thread = new Thread(){
-
+        Runnable task=new Runnable() {
             @Override
             public void run() {
-                super.run();
                 try{
                     Bitmap bitmap = future.get();
                     Message msg=new Message();
                     msg.what=1;
                     msg.obj=new Pair<>(imageView,bitmap);
                     ThreadPool.getInstance().getHandler().sendMessage(msg);
-                    Log.d("sandyzhang","2222");
+                    Log.d("ImageLoader","显示图片");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         };
-        ThreadPool.getInstance().execute(thread);
+        ThreadPool.getInstance().execute(task);
     }
 }
